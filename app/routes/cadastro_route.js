@@ -11,7 +11,7 @@ module.exports = function (application) {
 
     function validarFormulario(route) {
         switch (route) {
-            case 'cadastrar':
+            case 'cadastrar':                
                 return [
                     check('usuario').not().isEmpty().withMessage('O usuário é obrigatório'),
                     check('usuario').isLength({ min: 3, max: 15 }).withMessage('O usuário deve ter entre 3 e 15 caracteres'),
