@@ -26,6 +26,7 @@
 
 				$('#btn_suditos').click(
 					function(){
+						$('#msg').hide();
 						$.ajax({
 							url: '/suditos',
 							method: 'get',
@@ -38,6 +39,7 @@
 
 				$('#btn_pergaminho').click(
 					function(){
+						$('#msg').hide();
 						$.ajax({
 							url: '/pergaminhos',
 							method: 'get',
@@ -63,6 +65,17 @@
 	</nav>
 
 	<div class="container">
+		<%if (msg == 'E'){%>
+			<div class="alert alert-danger" id="msg">
+				<strong>Operação inválida - Verifique se todos os campos foram informados</strong>
+			</div>
+		<%}%>
+
+		<%if (msg == 'S'){%>
+			<div class="alert alert-info" id="msg">
+				<strong>Ação realizada com sucesso</strong>
+			</div>
+		<%}%>
 
 		<div class="row">
 			<div class="col-sm-3 casa">
