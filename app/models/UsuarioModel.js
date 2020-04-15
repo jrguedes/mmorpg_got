@@ -3,17 +3,12 @@ function UsuarioModel(connection) {
 }
 
 UsuarioModel.prototype.inserirUsuario = function (usuario) {
-
-
     this._connection.open(function (err, mongoClient) {
         mongoClient.collection('usuarios', function (err, collection) {
             collection.insert(usuario);
             mongoClient.close();
         });
     });
-
-
-
     console.log(usuario);
 }
 
