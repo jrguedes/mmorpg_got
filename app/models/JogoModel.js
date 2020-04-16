@@ -25,7 +25,7 @@ JogoModel.prototype.iniciarJogo = function (res, usuario, casa, msg) {
         mongoClient.collection('jogo', function (err, collection) {
             //collection.find(usuario);
             collection.find({ usuario: usuario }).toArray(
-                function (err, result) {                
+                function (err, result) {
                     res.render('jogo', { img_casa: casa, jogo: result[0], msg: msg });
                     mongoClient.close();
                 }
@@ -38,11 +38,11 @@ JogoModel.prototype.getAcoes = function (usuario, res) {
 
     this._connection.open(function (err, mongoClient) {
         mongoClient.collection('acao', function (err, collection) {
-            //collection.find(usuario);
-            collection.find({ usuario: usuario }).toArray(
-                function (err, result) {
-                    console.log('RESULT: ' + result[0].acao);
-                    res.render('pergaminhos', { acoes: result });                    
+            var date = new Date();
+            var momento_atual = date.getTime();
+            collection.find({ usuario: usuario, acao_termina_em: { $gt: momento_atual } }).toArray(
+                function (err, result) {                    
+                    res.render('pergaminhos', { acoes: result });
                     mongoClient.close();
                 }
             );
