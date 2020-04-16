@@ -9,7 +9,6 @@ UsuarioModel.prototype.inserirUsuario = function (usuario) {
             mongoClient.close();
         });
     });
-    console.log(usuario);
 }
 
 UsuarioModel.prototype.autenticar = function (usuario, req, res) {
@@ -18,6 +17,8 @@ UsuarioModel.prototype.autenticar = function (usuario, req, res) {
             //collection.find(usuario);
             collection.find({ usuario: usuario.usuario, senha: usuario.senha }).toArray(
                 function (err, result) {
+                    console.log('RESULT USUARIO: ' + result);
+
                     if (result[0] != undefined) {
                         req.session.autorizado = true;
                         req.session.usuario = result[0].usuario;

@@ -34,7 +34,10 @@ module.exports.renderPergaminhos = function (application, req, res) {
         return;
     }
 
-    res.render('pergaminhos', { validacao: {} });
+    var connection = application.config.db_connection;
+    var jogoModel = new application.app.models.JogoModel(connection);
+    var usuario = req.session.usuario;
+    jogoModel.getAcoes(usuario, res);
 }
 
 module.exports.renderOrdenarAcaoSudito = function (application, errors, req, res) {
