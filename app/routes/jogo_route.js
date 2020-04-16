@@ -17,6 +17,10 @@ module.exports = function (application) {
         application.app.controllers.jogo_controller.renderPergaminhos(application, req, res);
     });
 
+    application.get('/revogar_acao', function(req, res){
+        application.app.controllers.jogo_controller.revogarAcao(application, req, res);
+    });
+
     application.post('/ordernar_acao_sudito', validarFormJogo('jogo'), function (req, res) {
         application.app.controllers.jogo_controller.renderOrdenarAcaoSudito(application, validationResult(req), req, res);
     });

@@ -61,3 +61,12 @@ module.exports.renderOrdenarAcaoSudito = function (application, errors, req, res
 
     res.redirect('jogo?msg=S');
 }
+
+module.exports.revogarAcao = function(application, req, res){
+    var parametros = req.query;
+
+    var connection = application.config.db_connection;
+    var jogoModel = new application.app.models.JogoModel(connection);
+    var id_acao = parametros.id_acao;
+    jogoModel.revogarAcao(id_acao, res);
+}
