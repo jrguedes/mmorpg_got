@@ -1,3 +1,4 @@
+var crypto = require('crypto');
 function UsuarioModel(connection) {
     this._connection = connection();
 }
@@ -5,6 +6,9 @@ function UsuarioModel(connection) {
 UsuarioModel.prototype.inserirUsuario = function (usuario) {
     this._connection.open(function (err, mongoClient) {
         mongoClient.collection('usuarios', function (err, collection) {
+
+            var senha_criptografada = crypto.createHash('md5').update(usuario.senha).digest('hex');
+            usuario.senha = senha_criptografada;
             collection.insert(usuario);
             mongoClient.close();
         });
@@ -14,8 +18,10 @@ UsuarioModel.prototype.inserirUsuario = function (usuario) {
 UsuarioModel.prototype.autenticar = function (usuario, req, res) {
     this._connection.open(function (err, mongoClient) {
         mongoClient.collection('usuarios', function (err, collection) {
+
+            var senha_criptografada = crypto.createHash('md5').update(usuario.senha).digest('hex');
             //collection.find(usuario);
-            collection.find({ usuario: usuario.usuario, senha: usuario.senha }).toArray(
+            collection.find({ usuario: usuario.usuario, senha: senha_criptografada }).toArray(
                 function (err, result) {
                     console.log('RESULT USUARIO: ' + result);
 
